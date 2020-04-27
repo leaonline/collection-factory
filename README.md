@@ -140,3 +140,6 @@ $ TEST_WATCH=1 TEST_CLIENT=0 meteor test-packages ./ --driver-package meteortest
 
 ##### Cli mode
 
+=======
+# collection-factory
+Create factory functions for your collections. Supports (but not depends on) aldeed:collection2
