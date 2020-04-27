@@ -2,7 +2,7 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/leaonline/collection-factory)
+![GitHub file size in bytes](https://img.shields.io/github/size/leaonline/collection-factory/collection-factory.js)
 ![GitHub](https://img.shields.io/github/license/leaonline/collection-factory)
 
 Create Mongo collections. Isomorphic. Lightweight. Simple.
@@ -10,6 +10,8 @@ Create Mongo collections. Isomorphic. Lightweight. Simple.
 With this package you can define factory functions to create a variety of Mongo.Collection instances.
 Decouples definition from instantiation (also for the schema) and allows different configurations for different
 types of collections.
+
+**Minified size < 2KB!**
 
 ## Installation
 
