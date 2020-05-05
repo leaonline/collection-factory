@@ -1,7 +1,7 @@
 import { check, Match } from 'meteor/check'
 import { Mongo } from 'meteor/mongo'
 
-const isDDPConnection = c => c.constructor.name === 'Connection' || c.prototype.constructor.name === 'Connection'
+const isDDPConnection = Match.Where(c => c.constructor.name === 'Connection' || c.prototype.constructor.name === 'Connection')
 const isMaybeMongoCollection = Match.Where(c => {
   if (typeof c === 'undefined') return true
   if (c instanceof Mongo.Collection) return true
