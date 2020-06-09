@@ -47,9 +47,9 @@
       "integrity": "sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ=="
     },
     "message-box": {
-      "version": "0.2.5",
-      "resolved": "https://registry.npmjs.org/message-box/-/message-box-0.2.5.tgz",
-      "integrity": "sha512-e/WxhROs2CZ8iSp2lsv0kSVuJxvxTVpcqXxvKgvyniQpbL/jcHBIf/0mqT7Y65c1Okr4ZUDP6PdK8h3k5Ot22w=="
+      "version": "0.2.7",
+      "resolved": "https://registry.npmjs.org/message-box/-/message-box-0.2.7.tgz",
+      "integrity": "sha512-C4ccA5nHb58kTS+pLrgF/JWtr7fAIkHxRDceH7tdy5fMA783nUfbYwZ7H2XLvSeYfcnWIYCig5dWW+icK9X/Ag=="
     },
     "mongo-object": {
       "version": "0.1.4",
