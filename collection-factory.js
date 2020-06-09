@@ -1,7 +1,14 @@
 import { check, Match } from 'meteor/check'
 import { Mongo } from 'meteor/mongo'
 
-const isDDPConnection = Match.Where(c => c.constructor.name === 'Connection' || c.prototype.constructor.name === 'Connection')
+const isDDPConnection = Match.Where(c => c &&
+  typeof c.call === 'function' &&
+  typeof c.subscribe === 'function' &&
+  typeof c.apply === 'function' &&
+  typeof c.status === 'function' &&
+  typeof c.reconnect === 'function' &&
+  typeof c.disconnect === 'function')
+
 const isMaybeMongoCollection = Match.Where(c => {
   if (typeof c === 'undefined') return true
   if (c instanceof Mongo.Collection) return true
@@ -57,7 +64,12 @@ export const createCollectionFactory = ({ custom, schemaFactory } = {}) => {
     // 2. if we pass an already existing collection, we do not create
     // a new collection but use it to attach schema etc. which
     // can be required for collections, such as Meteor.users
-    const product = collection || new ProductConstructor(name, { connection, idGeneration, transform, defineMutationMethods })
+    const product = collection || new ProductConstructor(name, {
+      connection,
+      idGeneration,
+      transform,
+      defineMutationMethods
+    })
 
     // by default every client modification is denied
     product.deny(allModifications)
