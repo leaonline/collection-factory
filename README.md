@@ -129,6 +129,11 @@ $ meteor npm install --global standard snazzy
 $ standard | snazzy
 ```
 
+## History
+
+- **1.0.3**
+  - accept `null` values as name to create local collections
+
 
 ## Test
 
@@ -139,9 +144,3 @@ We use `meteortesting:mocha` to run our tests on the package.
 ```bash
 $ TEST_WATCH=1 TEST_CLIENT=0 meteor test-packages ./ --driver-package meteortesting:mocha
 ```
-
-##### Cli mode
-
-=======
-# collection-factory
-Create factory functions for your collections. Supports (but not depends on) aldeed:collection2
