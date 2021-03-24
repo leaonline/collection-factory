@@ -90,10 +90,19 @@ describe('with schema', function () {
   })
 })
 
+describe('local collection', function () {
+  it('allows to create a local collection', function () {
+    const createCollection = createCollectionFactory()
+    const localCollection = createCollection({ name: null })
+    expect(localCollection instanceof Mongo.Collection).to.equal(true)
+    expect(localCollection._name).to.equal(null)
+  })
+})
+
 describe('with existing collection', function () {
   it('throws if existing collection is no Mongo.Collection instance', function () {
     const createCollection = createCollectionFactory()
-    expect(() => createCollection({ collection: new Date() }))
+    expect(() => createCollection({ collection: new Date() })).to.throw()
   })
   it('returns an unaltered collection, if no schema should be attached', function () {
     const createCollectionWithoutSchema = createCollectionFactory()

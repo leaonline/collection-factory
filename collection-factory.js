@@ -48,7 +48,9 @@ export const createCollectionFactory = ({ custom, schemaFactory } = {}) => {
    */
 
   return ({ name, schema, collection, attachSchema, connection, idGeneration, transform, defineMutationMethods }) => {
-    check(name, collection ? Match.Maybe(String) : String)
+    check(name, collection
+      ? Match.Maybe(String)
+      : Match.OneOf(String, null))
     check(schema, isRequiredSchema)
     check(collection, isMaybeMongoCollection)
     check(connection, Match.Maybe(isDDPConnection))
