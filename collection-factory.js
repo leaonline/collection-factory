@@ -23,8 +23,8 @@ const allModifications = {
 
 /**
  * Creates a new collection factory function by given options.
- * @param custom a custom class extending Mongo.Collection
- * @param schemaFactory a function that returns a schema that can be attached to the collection
+ * @param custom {Mongo.Collection?} a custom class extending Mongo.Collection
+ * @param schemaFactory {function?} a function that returns a schema that can be attached to the collection
  * @return {function} the factory function to create new collections
  */
 
@@ -37,27 +37,40 @@ export const createCollectionFactory = ({ custom, schemaFactory } = {}) => {
 
   /**
    * Creates a new Mongo.Collection by given parameters and options
-   * @param name Name of the collection
-   * @param schema schema of the collection. Should be a definition object, not an instance!
-   * @param attachSchema optional flag to indicate, whether this collection should have it's related schema attached
-   * @param connection See: https://docs.meteor.com/api/collections.html#Mongo-Collection
-   * @param idGeneration See: https://docs.meteor.com/api/collections.html#Mongo-Collection
-   * @param transform See: https://docs.meteor.com/api/collections.html#Mongo-Collection
-   * @param defineMutationMethods See: https://docs.meteor.com/api/collections.html#Mongo-Collection
+   * @param options.name {string|null} Name of the collection
+   * @param options.schema {object?} schema of the collection. Should be a definition object, not an instance!
+   * @param options.attachSchema {boolean?} optional flag to indicate, whether this collection should have it's related schema attached
+   * @param options.connection {DDP.connection?} See: https://docs.meteor.com/api/collections.html#Mongo-Collection
+   * @param options.idGeneration {string?} See: https://docs.meteor.com/api/collections.html#Mongo-Collection
+   * @param options.transform {function?} See: https://docs.meteor.com/api/collections.html#Mongo-Collection
+   * @param options.defineMutationMethods {boolean?} See: https://docs.meteor.com/api/collections.html#Mongo-Collection
    * @return {Mongo.Collection} A Mongo.Collection instance
    */
 
-  return ({ name, schema, collection, attachSchema, connection, idGeneration, transform, defineMutationMethods }) => {
-    check(name, collection
-      ? Match.Maybe(String)
-      : Match.OneOf(String, null))
-    check(schema, isRequiredSchema)
-    check(collection, isMaybeMongoCollection)
-    check(connection, Match.Maybe(isDDPConnection))
-    check(attachSchema, Match.Maybe(Boolean))
-    check(idGeneration, Match.Maybe(String))
-    check(transform, Match.Maybe(Function))
-    check(defineMutationMethods, Match.Maybe(Boolean))
+  return options => {
+    check(options, Match.ObjectIncluding({
+      name: options.collection
+        ? Match.Maybe(String)
+        : Match.OneOf(String, null),
+      schema: isRequiredSchema,
+      collection: Match.Maybe(isMaybeMongoCollection),
+      connection: Match.Maybe(isDDPConnection),
+      attachSchema: Match.Maybe(Boolean),
+      idGeneration: Match.Maybe(String),
+      transform: Match.Maybe(Function),
+      defineMutationMethods: Match.Maybe(Boolean)
+    }))
+
+    const {
+      name,
+      schema,
+      collection,
+      attachSchema,
+      connection,
+      idGeneration,
+      transform,
+      defineMutationMethods
+    } = options
 
     // 1. this is the most basic creation of the collection
     // as shown in the Meteor documentation:
