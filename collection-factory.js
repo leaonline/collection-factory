@@ -21,6 +21,8 @@ const allModifications = {
   remove: () => false
 }
 
+const defined = x => typeof x !== 'undefined'
+
 /**
  * Creates a new collection factory function by given options.
  * @param custom {Mongo.Collection?} a custom class extending Mongo.Collection
@@ -72,6 +74,12 @@ export const createCollectionFactory = ({ custom, schemaFactory } = {}) => {
       defineMutationMethods
     } = options
 
+    const collectionOptions = {}
+    if (defined(connection)) collectionOptions.connection = connection
+    if (defined(idGeneration)) collectionOptions.idGeneration = idGeneration
+    if (defined(transform)) collectionOptions.transform = transform
+    if (defined(defineMutationMethods)) collectionOptions.defineMutationMethods = defineMutationMethods
+
     // 1. this is the most basic creation of the collection
     // as shown in the Meteor documentation:
     // https://docs.meteor.com/api/collections.html#Mongo-Collection
@@ -79,12 +87,7 @@ export const createCollectionFactory = ({ custom, schemaFactory } = {}) => {
     // 2. if we pass an already existing collection, we do not create
     // a new collection but use it to attach schema etc. which
     // can be required for collections, such as Meteor.users
-    const product = collection || new ProductConstructor(name, {
-      connection,
-      idGeneration,
-      transform,
-      defineMutationMethods
-    })
+    const product = collection || new ProductConstructor(name, collectionOptions)
 
     // by default every client modification is denied
     product.deny(allModifications)

@@ -1,7 +1,7 @@
 /* eslint-env meteor */
 Package.describe({
   name: 'leaonline:collection-factory',
-  version: '2.0.0',
+  version: '2.1.0',
   // Brief, one-line summary of the package.
   summary: 'Create Mongo collections. Isomorphic. Lightweight. Simple.',
   // URL to the Git repository containing the source code for this package.
